@@ -1,0 +1,1 @@
+<template>Member page</template>
