@@ -1,28 +1,15 @@
 <template>
-  <nav class="navbar">
-    <div class="container-fluid">
-      <RouterLink to="/" class="navbar-brand">
-        <img
-          src="@/assest/img/arrow_back_FILL0_wght400_GRAD0_opsz48.svg"
-          alt=""
-        />
-      </RouterLink>
-      <div>
-        <button type="button" class="btn btn-success">
-          <RouterLink to="regist" class="px-3">註冊</RouterLink>
-        </button>
-      </div>
-    </div>
-  </nav>
+  <h1>進入訪客頁面</h1>
+  <Reviewfile>
+    <template v-slot:guest>
+      <RouterLink to="/" class="text-success">返回首頁</RouterLink>
+    </template>
+  </Reviewfile>
 </template>
 
-<style>
-@import "bootstrap";
-</style>
-
 <script>
-import { RouterLink } from "vue-router";
+import Reviewfile from "@/components/ReviewFile.vue";
 export default {
-  components: { RouterLink },
+  components: { Reviewfile },
 };
 </script>

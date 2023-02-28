@@ -1,29 +1,6 @@
 <template>
   <FrontNavbar></FrontNavbar>
-  <div class="uploadFile d-flex flex-column my-5 pt-5 mx-auto">
-    <div class="mx-auto">
-      <img src="@/assets/img/Addfile.svg" alt="" />
-    </div>
-    <div class="mx-auto text-center">
-      <p>將檔案拖曳至這裡，或</p>
-      <button
-        type="button"
-        class="selectFile btn btn-success text-white"
-        @click="$refs.file.click()"
-      >
-        選擇檔案
-      </button>
-      <input
-        ref="file"
-        type="file"
-        v-show="false"
-        v-on:change="handleFileUpload()"
-        accept="text/jpg,.pdf,.png"
-      />
-      <p class="text-success">檔案大小10MB以內，檔案格式為PDF、JPG 或 PNG</p>
-    </div>
-  </div>
-
+  <upload-file></upload-file>
   <div class="stepContainer">
     <h3 class="text-center">輕鬆幾步驟，完成您的簽署</h3>
     <div class="step d-flex justify-content-around">
@@ -62,36 +39,18 @@
 <script>
 //匯入 被封裝的元件
 import FrontNavbar from "@/components/FrontNavbar.vue";
+import UploadFile from "@/components/UploadFile.vue";
 
 export default {
   components: {
     FrontNavbar,
-  },
-  methods: {
-    handleFileUpload: function () {
-      this.file = this.$refs.file.files[0];
-    },
+    UploadFile,
   },
 };
 </script>
 
 <style scoped lang="scss">
-@import "bootstrap";
 h1 {
   font-size: 30px;
-}
-.uploadFile {
-  width: 80%;
-  padding: 50px;
-  margin: 0 auto;
-  &:hover {
-    border: 5px;
-    border-color: #0b8652;
-    border-style: dashed;
-    background-color: #cee5e4;
-  }
-}
-.selectFile {
-  width: 420px;
 }
 </style>

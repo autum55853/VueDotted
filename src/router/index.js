@@ -7,13 +7,11 @@ const router = createRouter({
       path: "/",
       name: "FrontView",
       component: () => import("../views/FrontView.vue"),
-      children: [
-        {
-          path: "guest",
-          name: "guest",
-          component: () => import("../views/LoginView.vue"),
-        },
-      ],
+    },
+    {
+      path: "/guest",
+      name: "guest",
+      component: () => import("../views/GuestView.vue"),
     },
     {
       path: "/login",
@@ -36,9 +34,9 @@ const router = createRouter({
       component: () => import("../views/DashbordView.vue"),
       children: [
         {
-          path: "documents",
-          name: "documents",
-          component: () => import("../views/Dashboard/DocumentsView.vue"),
+          path: "memember",
+          name: "memember",
+          component: () => import("../views/Dashboard/MememberView.vue"),
         },
       ],
     },
