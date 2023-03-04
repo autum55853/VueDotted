@@ -2,10 +2,8 @@
   <h1>進入會員頁面</h1>
   <Reviewfile>
     <template v-slot:memember>
-      <div class="container-fluid d-flex">
-        <RouterLink to="/dashboard" class="text-success"
-          >←返回檔案總管</RouterLink
-        >
+      <div class="container-fluid d-flex justify-content-between">
+        <RouterLink to="/" class="text-success">←返回檔案總管</RouterLink>
         <div class="dropdown">
           <button
             class="btn btn-secondary dropdown-toggle"

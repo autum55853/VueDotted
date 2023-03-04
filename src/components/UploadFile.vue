@@ -3,7 +3,7 @@
     @dragenter.prevent="toggleActive"
     @dragleave.prevent="toggleActive"
     @dragover.prevent
-    @drop.prevent="toggleActive"
+    @drop.prevent="handleDrop"
     :class="{ 'active-dropzone': isActive }"
     class="uploadFile d-flex flex-column my-5 pt-5 mx-auto"
   >
@@ -17,12 +17,7 @@
         class="selectFile text-white border border-3 bg-success rounded-3 p-2"
         >選擇檔案</label
       >
-      <input
-        @click="onDrop"
-        id="file"
-        type="file"
-        accept="text/jpg,.pdf,.png"
-      />
+      <input id="file" type="file" accept="text/jpg,.pdf,.png" />
       <p class="text-success">檔案大小10MB以內，檔案格式為PDF、JPG 或 PNG</p>
     </div>
   </div>
@@ -37,12 +32,11 @@ export default {
     const toggleActive = () => {
       isActive.value = !isActive.value;
     };
-
-    const onDrop = (e) => {
+    const handleDrop = (e) => {
       console.log(e);
     };
 
-    return { isActive, toggleActive, onDrop };
+    return { isActive, toggleActive, handleDrop };
   },
 };
 </script>

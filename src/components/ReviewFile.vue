@@ -10,7 +10,7 @@
       </ul>
     </div>
   </nav>
-  <div class="bannerStep my-4">
+  <div class="bannerStep border my-4">
     <ul class="mx-auto d-flex justify-content-around w-60">
       <li class="mx-2"><span class="mx-2">1</span> 成功上傳檔案</li>
       <li class="mx-2"><span class="mx-2">2</span>加入簽名檔</li>
@@ -20,10 +20,12 @@
   </div>
   <div class="d-flex">
     <section class="pdfpreview w-70">PDF檔案預覽頁面</section>
-    <aside class="w-30 mx-auto">
-      <h5>我的簽名</h5>
-      <!-- Button trigger modal -->
-      <my-signing></my-signing>
+    <aside class="w-30">
+      <div class="border">
+        <h5>我的簽名</h5>
+        <!-- Button trigger modal -->
+        <my-signing></my-signing>
+      </div>
     </aside>
   </div>
 </template>

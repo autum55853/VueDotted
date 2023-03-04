@@ -38,11 +38,14 @@
           <div class="py-2">
             <button type="submit" class="btn btn-success w-70">登入</button>
           </div>
-          <RouterLink to="dashboard" class="text-success"
+          <RouterLink to="dashboard/memember" class="text-success"
             >假裝登入成功，進入後台頁面</RouterLink
           >
           還沒有帳戶?<RouterLink to="regist" class="text-success"
             >註冊</RouterLink
+          >
+          or<RouterLink to="guest" class="text-success"
+            >進入訪客頁面</RouterLink
           >
         </form>
       </section>
@@ -54,8 +57,6 @@
   </div>
 </template>
 <style lang="scss">
-@import "bootstrap";
-
 section {
   width: 50%;
   height: 100%;

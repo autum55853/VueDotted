@@ -29,6 +29,16 @@ const router = createRouter({
       component: () => import("../views/ForgotpasswordView.vue"),
     },
     {
+      path: "/connecterror",
+      name: "connecterror",
+      component: () => import("../views/ConnecterrorView.vue"),
+    },
+    {
+      path: "/uploaderror",
+      name: "uploaderror",
+      component: () => import("../views/UploaderrorView.vue"),
+    },
+    {
       path: "/dashboard",
       name: "dashBoard",
       component: () => import("../views/DashbordView.vue"),
