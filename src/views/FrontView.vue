@@ -1,10 +1,10 @@
 <template>
   <FrontNavbar></FrontNavbar>
-  <upload-file></upload-file>
+  <Upload-file></Upload-file>
   <div class="stepContainer">
-    <h3 class="text-center">輕鬆幾步驟，完成您的簽署</h3>
+    <h3 class="text-center mb-5">輕鬆幾步驟，完成您的簽署</h3>
     <div class="step d-flex justify-content-around">
-      <steps-card :props="steps"></steps-card>
+      <Steps-card v-bind="steps" :steps="steps"></Steps-card>
     </div>
   </div>
 

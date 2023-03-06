@@ -5,6 +5,7 @@
     @dragover.prevent
     @drop.prevent="handleDrop"
     :class="{ 'active-dropzone': isActive }"
+    mulitple
     class="uploadFile d-flex flex-column my-5 pt-5 mx-auto"
   >
     <div class="mx-auto">
@@ -33,7 +34,11 @@ export default {
       isActive.value = !isActive.value;
     };
     const handleDrop = (e) => {
-      console.log(e);
+      console.log(e.dataTransfer.files[0]);
+      const file = e.dataTransfer.files[0];
+      if (file) {
+        console.log(`你上傳的檔案名稱為:${file.name}`);
+      }
     };
 
     return { isActive, toggleActive, handleDrop };

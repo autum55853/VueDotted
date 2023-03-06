@@ -1,26 +1,23 @@
 <template>
-  <div class="card" v-for="step in steps" :key="step[i].id">
+  <div class="card" v-for="(step, index) in steps" :key="index">
     <div class="card-body">
-      <p>{{ step[i].id }}</p>
-      <h5 class="card-title">{{ step[i].title }}</h5>
-      <p class="card-text">{{ step[i].content }}</p>
+      <span
+        class="text-success border border-2 rounded-circle border-success px-2"
+        >{{ step.id }}</span
+      >
+      <h5 class="card-title my-3">{{ step.title }}</h5>
+      <p class="card-text">{{ step.content }}</p>
     </div>
-    <img :src="step[i].image" class="card-img-top" alt="..." />
+    <img :src="step.image" class="card-img-top" alt="..." />
   </div>
 </template>
 <script>
 export default {
-  setup() {
-    const steps = {
-      props: ["props"],
-      setup(props) {
-        const { step1, step2, step3 } = props;
-        console.log(step1, step2, step3);
-        return { step1, step2, step3 };
-      },
-    };
-
-    return { steps };
+  props: {
+    steps: {
+      type: Array,
+      default: () => [],
+    },
   },
 };
 </script>
