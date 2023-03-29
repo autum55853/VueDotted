@@ -5,7 +5,6 @@
     @dragover.prevent
     @drop.prevent="handleDrop"
     :class="{ 'active-dropzone': isActive }"
-    mulitple
     class="uploadFile d-flex flex-column my-5 pt-5 mx-auto"
   >
     <div class="mx-auto">
@@ -13,12 +12,32 @@
     </div>
     <div class="mx-auto text-center">
       <p>將檔案拖曳至這裡，或</p>
-      <label
-        for="file"
-        class="selectFile text-white border border-3 bg-success rounded-3 p-2"
-        >選擇檔案</label
-      >
-      <input id="file" type="file" accept="text/jpg,.pdf,.png" />
+      <div class="w-360 selectFile position-relative">
+        <label
+          @change="toggleActive(), handleDrop(e)"
+          for="file"
+          class="w-360 py-2"
+          :class="{ hide: isLoading }"
+          >選擇檔案</label
+        >
+        <div class="hide w-360" :class="{ show: isLoading }">
+          <span
+            :style="{ width: loadingWidth + '%' }"
+            :class="{ 'active-loading': isLoading }"
+          >
+          </span>
+          <p class="p-2 position-absolute top-50 start-50 translate-middle">
+            上傳中...
+          </p>
+        </div>
+      </div>
+
+      <input
+        class="uploadInput"
+        id="file"
+        type="file"
+        accept="text/jpg,.pdf,.png"
+      />
       <p class="text-success">檔案大小10MB以內，檔案格式為PDF、JPG 或 PNG</p>
     </div>
   </div>
@@ -26,22 +45,57 @@
 
 <script>
 import { ref } from "vue";
+import { useRouter } from "vue-router";
 export default {
   name: "DropZone",
   setup() {
     const isActive = ref(false);
+    const isLoading = ref(false);
+    const loadingWidth = ref(0);
+    const router = useRouter();
     const toggleActive = () => {
       isActive.value = !isActive.value;
     };
-    const handleDrop = (e) => {
-      console.log(e.dataTransfer.files[0]);
-      const file = e.dataTransfer.files[0];
-      if (file) {
-        console.log(`你上傳的檔案名稱為:${file.name}`);
-      }
+    const toggleLoading = () => {
+      isLoading.value = !isLoading.value;
+      console.log("上傳中");
+      loadingWidth.value = window.setInterval(() => {
+        loadingWidth.value += 20;
+        console.log(loadingWidth.value);
+        if (loadingWidth.value >= 100) {
+          handleRouter();
+          loadingWidth.value = 0;
+        }
+      }, 3000);
     };
 
-    return { isActive, toggleActive, handleDrop };
+    const handleRouter = () => {
+      window.clearInterval(loadingWidth);
+      setTimeout(() => {
+        router.push("/guest");
+      }, 2000);
+    };
+    const handleDrop = (e) => {
+      console.log(e);
+      //const file = e.dataTransfer.files[0];
+      /* const fileSize = file.size / 1024 / 1024;
+      if (fileSize < 10) {
+        toggleLoading();
+      } else {
+        console.log("Error");
+        console.log(`${fileSize / 1048576}`);
+        alert("檔案大小超出限制的10MB");
+      } */
+    };
+
+    return {
+      isActive,
+      toggleActive,
+      handleDrop,
+      isLoading,
+      toggleLoading,
+      loadingWidth,
+    };
   },
 };
 </script>
@@ -51,19 +105,43 @@ export default {
   width: 80%;
   padding: 50px;
   margin: 0 auto;
+  border: 5px dashed #0b7d77;
+}
+.w-360 {
+  width: 360px;
 }
 .selectFile {
   width: 360px;
-  &:hover {
-    cursor: pointer;
-  }
+  background-color: #0b7d77;
+  border-radius: 8px;
+  color: white;
 }
-.active-dropzone {
-  background: #cee5e4;
-  border: 5px dashed #0b7d77;
+.selectFile label :hover {
+  cursor: pointer;
+}
+.selectFile span {
+  padding: 10px;
+}
+.hide {
+  display: none;
+}
+.show {
+  display: block;
 }
 
-input {
+.active-dropzone {
+  background: #cee5e4;
+}
+.selectFile label {
+  cursor: pointer;
+}
+.active-loading {
+  display: block;
+  color: white;
+  background: #096561;
+}
+
+.uploadInput {
   display: none;
 }
 </style>
