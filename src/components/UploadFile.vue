@@ -66,7 +66,7 @@ export default {
           handleRouter();
           loadingWidth.value = 0;
         }
-      }, 3000);
+      }, 1000);
     };
 
     const handleRouter = () => {
