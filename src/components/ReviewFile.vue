@@ -1,15 +1,18 @@
 <template>
-  <nav class="navbar navbar-light bg-light">
-    <div class="container-fluid d-flex">
-      <slot name="guest"></slot>
-      <slot name="memember"></slot>
-      <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton1">
-        <li><a class="dropdown-item" href="#">個人與偏好設定</a></li>
-        <li><a class="dropdown-item" href="#">簽屬人清單</a></li>
-        <li><a class="dropdown-item" href="#">登出</a></li>
-      </ul>
-    </div>
-  </nav>
+  <div class="bg-light">
+    <nav class="navbar navbar-light">
+      <div class="container-fluid d-flex">
+        <slot name="guest"></slot>
+        <slot name="memember"></slot>
+        <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton1">
+          <li><a class="dropdown-item" href="#">個人與偏好設定</a></li>
+          <li><a class="dropdown-item" href="#">簽屬人清單</a></li>
+          <li><a class="dropdown-item" href="#">登出</a></li>
+        </ul>
+      </div>
+    </nav>
+  </div>
+
   <div class="bannerStep border border-2 my-4">
     <ul class="m-3 mx-auto d-flex justify-content-between w-60">
       <li>
@@ -19,44 +22,27 @@
         成功上傳檔案
       </li>
       <hr class="separateLine" />
-      <li>
-        <span
-          class="mx-2 text-secondary border border-2 rounded-circle border-secondary px-2"
-          >2</span
-        >加入簽名檔
-      </li>
+      <li><span class="steps active-step">2</span>加入簽名檔</li>
       <hr class="separateLine" />
-      <li>
-        <span
-          class="mx-2 text-secondary border border-2 rounded-circle border-secondary px-2"
-          >3</span
-        >確認檔案
-      </li>
+      <li><span class="steps">3</span>確認檔案</li>
       <hr class="separateLine" />
-      <li>
-        <span
-          class="mx-2 text-secondary border border-2 rounded-circle border-secondary px-2"
-          >4</span
-        >下載檔案
-      </li>
+      <li><span class="steps">4</span>下載檔案</li>
     </ul>
   </div>
-  <div class="d-flex">
-    <div class="w-70">
-      <div class="pdfpreview">
+  <div class="reviewContent">
+    <div class="d-flex justify-content-around">
+      <div class="pdfpreview w-70">
         <pdf-preview></pdf-preview>
       </div>
-    </div>
-
-    <div class="w-30">
-      <aside>
-        <div class="w-60 mx-0">
-          <basic-info></basic-info>
-          <!-- Button trigger modal -->
-          <my-signing></my-signing>
-          <invite-others></invite-others>
+      <div class="p-5 w-30 d-flex flex-column">
+        <basic-info></basic-info>
+        <!-- Button trigger modal -->
+        <my-signing></my-signing>
+        <invite-others></invite-others>
+        <div class="nextStep d-flex flex-cloumn align-items-end">
+          <button type="button" class="btn btn-secondary">下一步</button>
         </div>
-      </aside>
+      </div>
     </div>
   </div>
 </template>
@@ -72,11 +58,11 @@ li {
 .separateLine {
   position: relative;
   padding: 0 30px;
+  width: 80px;
   border-top: 2px solid;
   ::before {
     content: "";
     position: absolute;
-    height: 3px;
     top: 50%;
     border-left: 9999px solid #ccc;
     border-right: 9999px solid #ccc;
@@ -84,6 +70,17 @@ li {
     left: -9999px;
   }
 }
+.steps {
+  display: inline-block;
+  color: #676879;
+  width: 28px;
+  height: 28px;
+  border: 3px solid #c5c7d0;
+  border-radius: 99px;
+  text-align: center;
+  margin: 0px 5px;
+}
+
 .w-30 {
   width: 30%;
 }
@@ -93,10 +90,28 @@ li {
 .w-60 {
   max-width: 80%;
 }
+.reviewContent {
+  max-width: 90%;
+  margin: 0 auto;
+}
 .pdfpreview {
-  margin: 0 50px;
-  height: 100%;
-  overflow: auto;
+  max-height: 800px;
+  overflow: scroll;
+}
+.nextStep {
+  height: 200px;
+  margin: 0 auto;
+}
+.nextStep button {
+  padding: 8px 80px;
+  &:hover {
+    font-weight: bold;
+  }
+}
+.active-step {
+  background: #0b7d77;
+  border-color: #cee5e4;
+  color: #ffffff;
 }
 </style>
 <script>

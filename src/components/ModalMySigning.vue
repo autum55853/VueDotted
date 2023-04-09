@@ -8,7 +8,7 @@
   </button>
   <!--Modal-Mysigning-->
   <div
-    class="modal fade show"
+    class="modal fade"
     ref="modalRef"
     id="exampleModal"
     tabindex="-1"
@@ -17,12 +17,14 @@
   >
     <div class="modal-dialog modal-dialog-centered">
       <div class="modal-content">
-        <button
-          type="button"
-          class="btn-close"
-          data-bs-dismiss="modal"
-          aria-label="Close"
-        ></button>
+        <div class="p-2 d-flex justify-content-end">
+          <button
+            type="button"
+            class="btn-close"
+            data-bs-dismiss="modal"
+            aria-label="Close"
+          ></button>
+        </div>
 
         <div class="modal-body d-flex flex-column">
           <sign-tabs></sign-tabs>

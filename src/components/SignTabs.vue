@@ -1,61 +1,72 @@
 <template>
   <div>
-    <ul class="nav nav-pills mb-3" id="pills-tab" role="tablist">
-      <li class="nav-item" role="presentation">
+    <ul class="nav nav-tabs mb-3" id="tab" role="tablist">
+      <li class="nav-item" ref="tab" role="presentation">
         <button
-          class="nav-link active"
-          id="pills-home-tab"
-          data-bs-toggle="pill"
-          data-bs-target="#pills-home"
+          class="nav-link"
+          id="home-tab"
+          data-bs-toggle="tab"
+          data-bs-target="#home"
           type="button"
           role="tab"
-          aria-controls="pills-home"
+          aria-controls="home"
           aria-selected="true"
+          @click="ActiveBtn"
+          :class="{ 'active-btn': ActiveBtn }"
         >
           輸入
         </button>
       </li>
-      <li class="nav-item" role="presentation">
+      <li class="nav-item" ref="tab" role="presentation">
         <button
-          class="nav-link"
-          id="pills-profile-tab"
-          data-bs-toggle="pill"
-          data-bs-target="#pills-profile"
+          class="nav-link tabButton"
+          id="profile-tab"
+          data-bs-toggle="tab"
+          data-bs-target="#profile"
           type="button"
           role="tab"
-          aria-controls="pills-profile"
+          aria-controls="profile"
           aria-selected="false"
+          @click="ActiveBtn"
+          :class="{ 'active-btn': ActiveBtn }"
         >
           手寫
         </button>
       </li>
-      <li class="nav-item" role="presentation">
+      <li class="nav-item" ref="tab" role="presentation">
         <button
-          class="nav-link"
-          id="pills-contact-tab"
-          data-bs-toggle="pill"
-          data-bs-target="#pills-contact"
+          class="nav-link tabButton"
+          id="contact-tab"
+          data-bs-toggle="tab"
+          data-bs-target="#contact"
           type="button"
           role="tab"
-          aria-controls="pills-contact"
+          aria-controls="contact"
           aria-selected="false"
+          @click="ActiveBtn"
+          :class="{ 'active-btn': ActiveBtn }"
         >
           上傳
         </button>
       </li>
     </ul>
-    <div class="tab-content" id="pills-tabContent">
+    <div class="tab-content" id="tabContent">
       <div
         class="tab-pane fade show active"
-        id="pills-home"
+        id="home"
         role="tabpanel"
-        aria-labelledby="pills-home-tab"
+        aria-labelledby="home-tab"
       >
         <div class="mb-3">
-          <button type="button" class="fontSelect notoSans">思源黑體</button>
-          <button type="button" class="fontSelect notoSerif">思源宋體</button>
-          <button type="button" class="fontSelect chenYuluoyan">
-            辰於落燕體
+          <button
+            type="button"
+            class="fontSelect"
+            @click="toggleSelect(index)"
+            :class="{ activeSelect: currentIndex == index }"
+            v-for="(font, index) in fontFamily"
+            :key="font.id"
+          >
+            {{ font.fontName }}
           </button>
         </div>
 
@@ -74,9 +85,9 @@
       </div>
       <div
         class="tab-pane fade"
-        id="pills-profile"
+        id="profile"
         role="tabpanel"
-        aria-labelledby="pills-profile-tab"
+        aria-labelledby="profile-tab"
       >
         手寫的內容
         <div class="mb-3">
@@ -87,11 +98,12 @@
       </div>
       <div
         class="tab-pane fade"
-        id="pills-contact"
+        id="contact"
         role="tabpanel"
-        aria-labelledby="pills-contact-tab"
+        aria-labelledby="contact-tab"
       >
         上傳的內容
+        <upload-file></upload-file>
       </div>
     </div>
   </div>
@@ -99,13 +111,66 @@
 
 <script>
 import CanvasDraw from "@/components/CanvasFun.vue";
+import UploadFile from "@/components/UploadFile.vue";
+import Tab from "bootstrap/js/dist/tab";
+import { onMounted, ref } from "vue";
 export default {
   components: {
     CanvasDraw,
+    UploadFile,
+  },
+  setup() {
+    const fontFamily = [
+      { id: 1, fontName: "思源黑體", content: "notoSans" },
+      { id: 2, fontName: "思源宋體", content: "notoSerif" },
+      { id: 3, fontName: "辰於落燕體", content: "chenYuluoyan" },
+    ];
+    const currentIndex = ref(0);
+
+    const tab = ref(null);
+    const ActiveBtn = ref(false);
+    const toggleBtn = () => {
+      ActiveBtn.value = !ActiveBtn.value;
+    };
+    const toggleSelect = (index) => {
+      console.log("成功點擊");
+      currentIndex.value = index;
+    };
+    let tabs;
+
+    onMounted(() => {
+      tabs = new Tab(tab.value);
+    });
+
+    return {
+      ActiveBtn,
+      toggleBtn,
+      currentIndex,
+      fontFamily,
+      toggleSelect,
+      tabs,
+      tab,
+    };
   },
 };
 </script>
 <style lang="scss">
+.nav-tabs .nav-link {
+  background: white;
+  border: none;
+  color: #323338;
+}
+.nav-link:hover {
+  color: #0b7d77;
+}
+.nav-item {
+  width: 33.3333%;
+}
+
+.active-btn {
+  border-bottom: 2px solid #0b7d77;
+  color: #0b7d77;
+}
 .inputName {
   width: 100%;
   min-height: 150px;
@@ -113,6 +178,7 @@ export default {
   border-radius: 5px;
   font-size: 30px;
 }
+
 .notoSans {
   font-family: "Noto Sans TC";
 }
@@ -143,5 +209,9 @@ export default {
 }
 .red {
   background-color: #d83a52;
+}
+.activeSelect {
+  background: #cee5e4;
+  border-color: #0b7d77;
 }
 </style>

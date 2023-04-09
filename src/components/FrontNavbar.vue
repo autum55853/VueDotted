@@ -29,7 +29,6 @@
 </template>
 
 <style lang="scss">
-@import "bootstrap";
 .navbar {
   max-width: 80%;
   margin: 0 auto;

@@ -4,7 +4,7 @@
   </button>
   <!--Modal-InviteOthers-->
   <div
-    class="modal fade show"
+    class="modal fade"
     ref="modalRef"
     id="exampleModal"
     tabindex="-1"
@@ -13,12 +13,15 @@
   >
     <div class="modal-dialog modal-dialog-centered">
       <div class="modal-content">
-        <button
-          type="button"
-          class="btn-close"
-          data-bs-dismiss="modal"
-          aria-label="Close"
-        ></button>
+        <div class="p-2 d-flex justify-content-end">
+          <button
+            type="button"
+            class="btn-close"
+            data-bs-dismiss="modal"
+            aria-label="Close"
+          ></button>
+        </div>
+
         <div class="modal-header border-bottom border-success">
           <h5 class="modal-title text-success">邀請簽署人</h5>
         </div>
@@ -51,10 +54,10 @@
             </div>
           </div>
         </div>
-        <div class="modal-footer">
+        <div class="modal-footer d-flex flex-column">
           <button
             type="button"
-            class="btn btn-secondary"
+            class="btn btn-secondary px-5"
             data-bs-dismiss="modal"
           >
             儲存

@@ -7,14 +7,13 @@
       <section>
         <div class="text-center border-gray w-60 mx-auto m-3">
           <img class="mb-4" src="@/assets/Logo.svg" alt="logo" />
-          <div class="w-70 mx-auto d-flex justify-content-evenly">
-            <button>透過 Google 註冊</button>
-            <button>透過 FaceBook 註冊</button>
+          <div class="mx-auto d-flex justify-content-evenly">
+            <btn-from-others></btn-from-others>
           </div>
         </div>
 
-        <form class="mx-auto w-60">
-          <div class="mb-3 w-60 mx-auto border-top py-3 border-2">
+        <form class="mx-auto w-70">
+          <div class="mb-3 w-70 mx-auto border-top py-3 border-2">
             <input
               type="text"
               class="form-control mb-3"
@@ -64,9 +63,11 @@ section {
 </style>
 <script>
 import LoginNavbar from "@/components/LoginNavbar.vue";
+import BtnFromOthers from "@/components/BtnFromOthers.vue";
 export default {
   components: {
     LoginNavbar,
+    BtnFromOthers,
   },
 };
 </script>

@@ -1,19 +1,19 @@
 <template>
-  <div class="accountPage">
-    <div>
+  <div class="accountPage d-flex">
+    <div class="d-flex flex-column w-50">
       <LoginNavbar></LoginNavbar>
-    </div>
-    <div class="d-flex">
-      <section>
-        <div class="text-center border-gray w-60 mx-auto m-2">
-          <img class="mb-4" src="@/assets/Logo.svg" alt="logo" />
-          <div class="w-70 mx-auto d-flex justify-content-evenly">
-            <button>FaceBook Login</button>
-            <button>Google login</button>
+
+      <section class="mx-auto w-70">
+        <div class="text-center border-gray mx-auto m-2">
+          <RouterLink to="/" class="navbar-brand">
+            <img src="@/assets/Logo.svg" alt="" width="150" height="100" />
+          </RouterLink>
+          <div class="mx-auto d-flex justify-content-evenly">
+            <btn-from-others></btn-from-others>
           </div>
         </div>
-        <form class="mx-auto w-60 py-3">
-          <div class="mb-2 w-70 mx-auto border-top py-3 border-2">
+        <form class="mx-auto py-3">
+          <div class="mb-2 w-80 mx-auto border-top py-3 border-2">
             <input
               type="email"
               class="form-control"
@@ -49,7 +49,9 @@
           >
         </form>
       </section>
-      <section class="bg-light">
+    </div>
+    <div class="w-50 bg-light">
+      <section class="mx-auto">
         <h3 class="text-center">登入至您的檔案總管</h3>
         <img src="@/assets/img/Management.svg" alt="登入至您的檔案總管" />
       </section>
@@ -58,9 +60,11 @@
 </template>
 <style lang="scss">
 section {
-  width: 50%;
   height: 100%;
   text-align: center;
+}
+.w-50 {
+  width: 50%;
 }
 .w-60 {
   width: 60%;
@@ -68,12 +72,32 @@ section {
 .w-70 {
   width: 70%;
 }
+.w-80 {
+  width: 80%;
+}
+.accountPage {
+  margin: auto;
+  height: 100vh;
+}
+.accountPage section {
+  padding: 10% 0;
+}
+
+a {
+  text-decoration: none;
+  &:hover {
+    color: #0b7d77;
+    font-weight: bold;
+  }
+}
 </style>
 <script>
 import LoginNavbar from "@/components/LoginNavbar.vue";
+import BtnFromOthers from "@/components/BtnFromOthers.vue";
 export default {
   components: {
     LoginNavbar,
+    BtnFromOthers,
   },
 };
 </script>
