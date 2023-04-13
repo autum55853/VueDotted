@@ -1,0 +1,1 @@
+import{C as a}from"./CanvasFun-aa11965b.js";import{_ as n,r as s,o as e,j as r}from"./index-25409e90.js";const t={components:{CanvasDraw:a}};function c(p,_,m,f,d,i){const o=s("canvas-draw");return e(),r(o)}const u=n(t,[["render",c]]);export{u as default};

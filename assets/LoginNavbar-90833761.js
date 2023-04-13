@@ -1,0 +1,1 @@
+import{R as o,_ as t,r as s,o as a,c as n,a as c,b as r,w as _,d as i}from"./index-25409e90.js";const d={components:{RouterLink:o}},p={class:"container-fluid"};function l(u,f,m,x,k,v){const e=s("RouterLink");return a(),n("nav",null,[c("div",p,[r(e,{to:"/",class:"navbar-brand text-success"},{default:_(()=>[i(" 回首頁 ")]),_:1})])])}const b=t(d,[["render",l]]);export{b as L};
