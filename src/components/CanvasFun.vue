@@ -77,7 +77,7 @@ export default {
       ctx.stroke();
     };
 
-    //preview signature, cover to img
+    //preview signature, covert to img
     const showImage = ref(null);
     let newImg;
     const saveImage = () => {
@@ -115,8 +115,8 @@ export default {
 }
 canvas {
   background-color: #ffd3ab;
-  width: 500px;
-  height: 300px;
+  max-width: 90%;
+  min-height: 150px;
   position: absolute; /*重要的一步是設定絕對定位*/
   margin: auto; /*將四周邊距都設為auto自動*/
   left: 0; /*離包含元素的距離均設為零*/

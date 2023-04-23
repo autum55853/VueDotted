@@ -30,19 +30,19 @@ export default {
         id: 1,
         title: "上傳檔案",
         content: "選擇PDF或是IMG檔案",
-        image: "../src/assets/img/File-upload.svg",
+        image: "./src/assets/img/File-upload.svg",
       },
       {
         id: 2,
         title: "加入簽名檔",
         content: "手寫、輸入或是上傳簽名檔",
-        image: "../src/assets/img/Signing.svg",
+        image: "./src/assets/img/Signing.svg",
       },
       {
         id: 3,
         title: "下載與傳送",
         content: "完成簽署可立即傳送檔案給對方",
-        image: "../src/assets/img/Sending.svg",
+        image: "./src/assets/img/Sending.svg",
       },
     ];
 

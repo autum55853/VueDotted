@@ -40,12 +40,35 @@
         <my-signing></my-signing>
         <invite-others></invite-others>
         <div class="nextStep d-flex flex-cloumn align-items-end">
-          <button type="button" class="btn btn-secondary">下一步</button>
+          <button type="button" class="btn btn-secondary" :disabled="!isAble">
+            下一步
+          </button>
         </div>
       </div>
     </div>
   </div>
 </template>
+<script>
+import MySigning from "@/components/MySigning.vue";
+import BasicInfo from "@/components/BasicInfo.vue";
+import InviteOthers from "@/components/InviteOthers.vue";
+import PdfPreview from "@/components/PdfPreview.vue";
+import { ref } from "vue";
+export default {
+  components: {
+    MySigning,
+    BasicInfo,
+    InviteOthers,
+    PdfPreview,
+  },
+  setup() {
+    const isAble = ref(false);
+    return {
+      isAble,
+    };
+  },
+};
+</script>
 <style lang="scss">
 li {
   list-style: none;
@@ -114,17 +137,3 @@ li {
   color: #ffffff;
 }
 </style>
-<script>
-import MySigning from "@/components/MySigning.vue";
-import BasicInfo from "@/components/BasicInfo.vue";
-import InviteOthers from "@/components/InviteOthers.vue";
-import PdfPreview from "@/components/PdfPreview.vue";
-export default {
-  components: {
-    MySigning,
-    BasicInfo,
-    InviteOthers,
-    PdfPreview,
-  },
-};
-</script>

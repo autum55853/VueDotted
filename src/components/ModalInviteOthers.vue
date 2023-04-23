@@ -30,37 +30,45 @@
           <input
             id="othersEmail"
             type="email"
+            v-model="inviteEmail"
             class="basicInfo guestBorder"
             placeholder="請輸入您的電子信箱"
+            @change="checkInvite"
           />
           <div class="d-flex">
             <div>
               <label for="othersFirstName">姓氏*</label>
               <input
                 id="othersFirstName"
+                v-model="inviteFirstname"
                 type="text"
                 class="basicInfo guestBorder"
                 placeholder="請輸入簽署人姓氏"
+                @change="checkInvite"
               />
             </div>
             <div>
               <label for="othersLastName">名字</label>
               <input
                 id="othersLastName"
-                type="email"
+                type="text"
+                v-model="inviteLastname"
                 class="basicInfo othersName"
                 placeholder="請輸入簽署人名字"
+                @change="checkInvite"
               />
             </div>
           </div>
         </div>
         <div class="modal-footer d-flex flex-column">
           <button
-            type="button"
+            type="submit"
             class="btn btn-secondary px-5"
             data-bs-dismiss="modal"
+            :disabled="!isInvite"
+            @submit.prevent="saveInviter"
           >
-            儲存
+            儲存被邀請人資訊
           </button>
         </div>
       </div>
@@ -83,7 +91,37 @@ export default {
     const openModal = () => {
       deleteModal.show();
     };
-    return { modalRef, deleteModal, openModal };
+    //確認已完成邀約他人
+    const isInvite = ref(false);
+    const checkInvite = () => {
+      if (
+        inviteEmail.value != "" &&
+        inviteFirstname.value != "" &&
+        inviteLastname.value != ""
+      ) {
+        isInvite.value = !isInvite.value;
+      }
+    };
+
+    const inviteEmail = ref("");
+    const inviteFirstname = ref("");
+    const inviteLastname = ref("");
+    const saveInviter = () => {
+      console.log(inviteEmail.value);
+      console.log(inviteFirstname.value);
+      console.log(inviteLastname.value);
+    };
+    return {
+      modalRef,
+      deleteModal,
+      openModal,
+      saveInviter,
+      inviteEmail,
+      inviteFirstname,
+      inviteLastname,
+      isInvite,
+      checkInvite,
+    };
   },
 };
 </script>

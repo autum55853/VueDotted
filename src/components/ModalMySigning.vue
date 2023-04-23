@@ -35,6 +35,7 @@
             type="button"
             class="btn btn-secondary px-5"
             data-bs-dismiss="modal"
+            :disabled="!isSign"
           >
             儲存
           </button>
@@ -64,7 +65,10 @@ export default {
     const openModal = () => {
       deleteModal.show();
     };
-    return { modalRef, deleteModal, openModal };
+    //確認已完成簽名製作
+    const isSign = ref(false);
+
+    return { modalRef, deleteModal, openModal, isSign };
   },
 };
 </script>

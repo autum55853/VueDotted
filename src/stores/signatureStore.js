@@ -6,6 +6,7 @@ export const useSignature = defineStore("signatureStore", () => {
   //state,actions,getters
 
   const signature = ref(null);
+
   function showSignature() {
     console.log(signature);
   }
