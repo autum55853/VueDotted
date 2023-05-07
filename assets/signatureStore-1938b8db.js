@@ -1,0 +1,1 @@
+import{B as i,e as s}from"./index-a2e31598.js";const r=i("signatureStore",{state:()=>({mySign:s(""),isSign:!1,isHide:!1}),actions:{checkSign:e=>{e.mySign.value!=""?(console.log("確認有簽名"),e.isHide=!0):(e.isSign.value=!1,e.isHide.value=!1)}}});export{r as u};
