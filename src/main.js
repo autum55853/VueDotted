@@ -1,9 +1,11 @@
 import { createApp } from "vue";
 import { createPinia } from "pinia";
+import App from "./App.vue";
 import axios from "axios";
 import VueAxios from "vue-axios";
-import ElementPlus from "element-plus";
-import "element-plus/dist/index.css";
+import domtoimage from "dom-to-image";
+import router from "./router";
+import VuePdf from "vue3-pdfjs";
 /* import the fontawesome core */
 import { library } from "@fortawesome/fontawesome-svg-core";
 
@@ -21,10 +23,6 @@ import {
 /* add icons to the library */
 library.add(faUserSecret, faCircleCheck, faPlus, faUserPlus);
 
-import App from "./App.vue";
-import router from "./router";
-import VuePdf from "vue3-pdfjs";
-
 const app = createApp(App);
 const pinia = createPinia();
 
@@ -32,7 +30,7 @@ app.use(pinia);
 app.use(router);
 app.use(VueAxios, axios);
 app.use(VuePdf);
-app.use(ElementPlus);
+app.use(domtoimage);
 app.component("font-awesome-icon", FontAwesomeIcon);
 
 app.mount("#app");

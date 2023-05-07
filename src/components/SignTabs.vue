@@ -55,8 +55,9 @@
           </button>
         </div>
 
-        <div class="mb-1">
+        <div class="mb-1" id="node">
           <input
+            @change="getTextUrl"
             type="text"
             class="inputName text-center"
             :class="[
@@ -96,7 +97,7 @@
           <button type="button">清除</button>
         </div>
 
-        <div class="mb-1"><canvas-draw></canvas-draw>></div>
+        <div class="mb-1"><canvas-draw></canvas-draw></div>
       </div>
       <div id="contact" v-if="tabID == 'three'">
         <file-area></file-area>
@@ -108,6 +109,8 @@
 <script>
 import CanvasDraw from "@/components/CanvasFun.vue";
 import FileArea from "@/components/FileArea.vue";
+import domtoimage from "dom-to-image";
+import { useSignature } from "@/stores/signatureStore.js";
 import { ref } from "vue";
 
 export default {
@@ -123,26 +126,42 @@ export default {
       ActiveBtn.value = !ActiveBtn.value;
     };
     const toggleSelect = (index) => {
-      console.log("成功點擊");
       currentIndex.value = index;
     };
     const showTabs = (tab) => {
-      console.log(tab);
       tabID.value = tab;
     };
     //手寫輸入選擇字體的顏色
     const colorSelect = ref("black");
     const selectColor = (color) => {
-      console.log("你選擇的顏色是" + color);
       colorSelect.value = color;
     };
     //手寫輸入選擇字體的樣式
     const fontID = ref("思源黑體");
     const fontSelect = ref("思源黑體");
     const selectFont = (font) => {
-      console.log("你選擇的字體是" + font);
       fontID.value = font;
       fontSelect.value = font;
+    };
+
+    //將輸入的文字轉成圖片Url
+    let sign = useSignature();
+    const getTextUrl = () => {
+      domtoimage
+        .toPng(document.getElementById("node"))
+        .then(function (dataUrl) {
+          const img = new Image();
+          img.src = dataUrl;
+
+          sign.$patch((state) => {
+            (state.mySign = dataUrl),
+              (state.isSign = true),
+              (state.isHide = true);
+          });
+        })
+        .catch(function (error) {
+          console.error("oops, something went wrong!", error);
+        });
     };
     return {
       ActiveBtn,
@@ -155,6 +174,7 @@ export default {
       selectFont,
       fontSelect,
       fontID,
+      getTextUrl,
     };
   },
 };
@@ -203,6 +223,7 @@ export default {
 .chenYuluoyan {
   font-family: "ChenYuluoyan";
   src: asset_path("fonts/ChenYuluoyan-Thin.ttf");
+  font-size: 56px;
 }
 .fontSelect {
   background: #ffffff;

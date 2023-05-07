@@ -14,7 +14,7 @@
       <p>將檔案拖曳至這裡，或</p>
       <div class="w-360 selectFile position-relative">
         <label
-          @change="toggleActive(), handleDrop(e)"
+          @change="toggleActive, handleDrop"
           for="file"
           class="w-360 py-2"
           :class="{ hide: isLoading }"

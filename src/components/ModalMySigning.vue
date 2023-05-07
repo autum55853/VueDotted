@@ -35,7 +35,8 @@
             type="button"
             class="btn btn-secondary px-5"
             data-bs-dismiss="modal"
-            :disabled="!isSign"
+            :disabled="!sign.isSign"
+            @click="checkSign"
           >
             儲存
           </button>
@@ -49,7 +50,7 @@
 import { onMounted, ref } from "vue";
 import Modal from "bootstrap/js/dist/modal";
 import SignTabs from "@/components/SignTabs.vue";
-
+import { useSignature } from "@/stores/signatureStore.js";
 export default {
   components: {
     SignTabs,
@@ -65,10 +66,13 @@ export default {
     const openModal = () => {
       deleteModal.show();
     };
-    //確認已完成簽名製作
-    const isSign = ref(false);
+    const sign = useSignature();
+    const checkSign = () => {
+      sign.checkSign;
+      sign.isSign = true;
+    };
 
-    return { modalRef, deleteModal, openModal, isSign };
+    return { modalRef, deleteModal, openModal, sign, checkSign };
   },
 };
 </script>

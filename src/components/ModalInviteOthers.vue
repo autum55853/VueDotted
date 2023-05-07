@@ -48,7 +48,7 @@
               />
             </div>
             <div>
-              <label for="othersLastName">名字</label>
+              <label for="othersLastName">名字*</label>
               <input
                 id="othersLastName"
                 type="text"
@@ -99,7 +99,9 @@ export default {
         inviteFirstname.value != "" &&
         inviteLastname.value != ""
       ) {
-        isInvite.value = !isInvite.value;
+        isInvite.value = true;
+      } else {
+        isInvite.value = false;
       }
     };
 

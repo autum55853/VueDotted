@@ -1,38 +1,46 @@
 <template>
   <div class="mb-5">
     <h4>我的簽名</h4>
-    <img class="mySignature" ref="showSignature" />
-    <modal-my-signing></modal-my-signing>
+    <div v-if="signStatus">
+      <img :src="signStore.mySign" alt="" />
+      {{ mySign }}
+    </div>
+    <div v-else>
+      {{ signStatus }}
+      <modal-my-signing></modal-my-signing>
+    </div>
   </div>
 </template>
 
 <script>
 import ModalMySigning from "@/components/ModalMySigning.vue";
-import { ref } from "vue";
-import { storeToRefs } from "pinia";
-import { useSignature } from "../stores/signatureStore";
+import { useSignature } from "@/stores/signatureStore.js";
+import { watch } from "vue";
 export default {
   components: {
     ModalMySigning,
   },
   setup() {
-    /* const store = useSignature();
-    const mySignature = storeToRefs(store);
-    const { showSignature } = store; */
-    const showSignature = ref(null);
-    //let mySignature;
-    /* const getSignature = () => {
-      console.log(localStorage.getItem("img"));
-      mySignature = localStorage.getItem("img");
-      showSignature.value.src = mySignature;
-    }; */
+    const signStore = useSignature();
+    let mySign;
+    let signStatus;
+    const changeStatus = () => {
+      signStatus = signStore.isSign;
+      console.log(signStatus);
+    };
+    //監聽pinia的mySign
+    watch(
+      () => signStore.mySign,
+      (e1, e2) => {
+        console.log(e1, e2);
+        changeStatus();
+      }
+    );
 
-    function getNewImg(newImg) {
-      console.log(newImg);
-    }
     return {
-      showSignature,
-      getNewImg,
+      mySign,
+      signStatus,
+      changeStatus,
     };
   },
 };

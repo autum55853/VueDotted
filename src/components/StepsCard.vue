@@ -5,7 +5,7 @@
       <h5 class="card-title my-3 fw-bold">{{ step.title }}</h5>
       <p class="card-text">{{ step.content }}</p>
     </div>
-    <img :src="step.image" class="card-img-top" alt="..." />
+    <img :src="`${step.image}`" class="card-img-top" alt="..." />
   </div>
 </template>
 <script>
@@ -14,6 +14,11 @@ export default {
     steps: {
       type: Array,
     },
+  },
+  setup(props) {
+    return {
+      props,
+    };
   },
 };
 </script>

@@ -83,7 +83,7 @@ export default {
     const saveImage = () => {
       newImg = canvas.value.toDataURL("image/png");
       // 圖片儲存的類型選擇 png ，並將值放入 img 的 src
-
+      console.log(newImg);
       showImage.value.src = newImg;
       //console.log(newImg);
       //localStorage.setItem("img", newImg);
