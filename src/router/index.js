@@ -19,16 +19,6 @@ const router = createRouter({
       component: () => import("../views/LoginView.vue"),
     },
     {
-      path: "/canvas",
-      name: "canvas",
-      component: () => import("../views/CanvasView.vue"),
-    },
-    {
-      path: "/inputText",
-      name: "inputText",
-      component: () => import("../views/inputTextView.vue"),
-    },
-    {
       path: "/regist",
       name: "regist",
       component: () => import("../views/RegistView.vue"),

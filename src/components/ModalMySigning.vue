@@ -68,8 +68,9 @@ export default {
     };
     const sign = useSignature();
     const checkSign = () => {
-      sign.checkSign;
+      console.log("確認已儲存簽名");
       sign.isSign = true;
+      console.log(sign.isSign);
     };
 
     return { modalRef, deleteModal, openModal, sign, checkSign };

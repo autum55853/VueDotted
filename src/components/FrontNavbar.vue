@@ -17,16 +17,6 @@
               >註冊</RouterLink
             >
           </button>
-          <button type="button" class="mx-2 p-2 register">
-            <RouterLink to="canvas" class="btnText fs-6 px-3 clearDecoration"
-              >Canvas功能頁</RouterLink
-            >
-          </button>
-          <button type="button" class="mx-2 p-2 register">
-            <RouterLink to="inputText" class="btnText fs-6 px-3 clearDecoration"
-              >InputText功能頁</RouterLink
-            >
-          </button>
         </div>
       </div>
     </nav>

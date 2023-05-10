@@ -8,17 +8,22 @@ export const useSignature = defineStore("signatureStore", {
   state: () => {
     const mySign = ref("");
     const isSign = false;
-    const isHide = false;
+    const isSave = false;
+    const subscriber = {
+      name: "",
+      email: "",
+    };
     return {
       // all these properties will have their type inferred automatically
       mySign,
       isSign,
-      isHide,
+      isSave,
+      subscriber,
     };
   },
   actions: {
     //確認已完成簽名製作
-    checkSign: (state) => {
+    /* checkSign: (state) => {
       if (state.mySign.value != "") {
         console.log("確認有簽名");
         state.isHide = true;
@@ -26,6 +31,6 @@ export const useSignature = defineStore("signatureStore", {
         state.isSign.value = false;
         state.isHide.value = false;
       }
-    },
+    }, */
   },
 });

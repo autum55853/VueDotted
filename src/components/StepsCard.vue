@@ -1,23 +1,32 @@
 <template>
-  <div class="card border-0" v-for="(step, index) in steps" :key="index">
-    <div class="card-body">
-      <span class="text-success text-center border-success">{{ step.id }}</span>
-      <h5 class="card-title my-3 fw-bold">{{ step.title }}</h5>
-      <p class="card-text">{{ step.content }}</p>
+  <div class="d-flex justify-content-around">
+    <div class="card border-0" v-for="(step, index) in steps" :key="index + 1">
+      <div class="card-body">
+        <span class="text-success text-center border-success">{{
+          step.id
+        }}</span>
+        <h5 class="card-title my-3 fw-bold">{{ step.title }}</h5>
+        <p class="card-text">{{ step.content }}</p>
+      </div>
+      <img :src="step.image" class="card-img-top" alt="..." />
     </div>
-    <img :src="`${step.image}`" class="card-img-top" alt="..." />
   </div>
 </template>
 <script>
 export default {
+  inheritAttrs: false,
   props: {
     steps: {
       type: Array,
     },
   },
   setup(props) {
+    const getImageUrl = (props) => {
+      return new URL(`./dir/${props.image}.svg`, import.meta.url).href;
+    };
     return {
       props,
+      getImageUrl,
     };
   },
 };

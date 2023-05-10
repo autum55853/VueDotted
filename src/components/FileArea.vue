@@ -67,7 +67,6 @@ export default {
         showPicture.value = reader.result;
         sign.mySign = reader.result;
         sign.isSign = true;
-        sign.isHide = true;
       }; //end: onloadend
     };
 
