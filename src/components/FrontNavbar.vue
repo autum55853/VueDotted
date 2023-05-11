@@ -17,6 +17,9 @@
               >註冊</RouterLink
             >
           </button>
+          <button type="button">
+            <router-link to="complete"> 完成簽署 </router-link>
+          </button>
         </div>
       </div>
     </nav>

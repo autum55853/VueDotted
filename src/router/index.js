@@ -24,6 +24,11 @@ const router = createRouter({
       component: () => import("../views/RegistView.vue"),
     },
     {
+      path: "/complete",
+      name: "complete",
+      component: () => import("../views/CompleteView.vue"),
+    },
+    {
       path: "/forgotpassword",
       name: "forgotpassword",
       component: () => import("../views/ForgotpasswordView.vue"),
