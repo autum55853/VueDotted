@@ -6,24 +6,26 @@ export const useSignature = defineStore("signatureStore", {
   //state,actions,getters
 
   state: () => {
+    const myPDF = ref("");
+    const isUpload = false;
     const mySign = ref("");
     const isSign = false;
     const isSave = false;
-    const subscriber = {
-      name: "",
-      email: "",
-    };
+    const isComplete = false;
+
     return {
       // all these properties will have their type inferred automatically
+      myPDF,
+      isUpload,
       mySign,
       isSign,
       isSave,
-      subscriber,
+      isComplete,
     };
   },
   actions: {
     //確認已完成簽名製作
-    /* checkSign: (state) => {
+    checkSign: (state) => {
       if (state.mySign.value != "") {
         console.log("確認有簽名");
         state.isHide = true;
@@ -31,6 +33,6 @@ export const useSignature = defineStore("signatureStore", {
         state.isSign.value = false;
         state.isHide.value = false;
       }
-    }, */
+    },
   },
 });

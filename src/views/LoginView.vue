@@ -12,7 +12,7 @@
             <btn-from-others></btn-from-others>
           </div>
         </div>
-        <form class="mx-auto py-3">
+        <form @submit.prevent="userLogin" class="mx-auto py-3">
           <div class="mb-2 w-80 mx-auto border-top py-3 border-2">
             <input
               type="email"
@@ -20,6 +20,7 @@
               id="InputEmail"
               aria-describedby="emailHelp"
               placeholder="請輸入電子郵件"
+              v-model="user.email"
             />
             <div id="emailHelp" class="form-text mb-3">
               We'll never share your email with anyone else.
@@ -30,6 +31,7 @@
               class="form-control"
               id="InputPassword"
               placeholder="請輸入密碼"
+              v-model="user.password"
             />
           </div>
           <RouterLink to="forgotpassword" class="text-success"
@@ -58,6 +60,38 @@
     </div>
   </div>
 </template>
+
+<script>
+import { ref } from "vue";
+import LoginNavbar from "@/components/LoginNavbar.vue";
+import BtnFromOthers from "@/components/BtnFromOthers.vue";
+
+//引入firebase
+//import { firebaseAuth } from "../config/firebaseConfiguration";
+export default {
+  components: {
+    LoginNavbar,
+    BtnFromOthers,
+  },
+  setup() {
+    const user = ref({});
+
+    //修正this.user.email&password&router per composition API 格式
+    /*  const userLogin = () => {
+      firebaseAuth
+        .signInWithEmailAndPassword(user.value.email, user.value.password)
+        .then(() => {
+          //this.$router.push("/admin");
+          console.log("登入成功");
+        })
+        .catch((error) => {
+          alert(error.message);
+        });
+    }; */
+    return { user };
+  },
+};
+</script>
 <style lang="scss">
 section {
   height: 100%;
@@ -91,13 +125,3 @@ a {
   }
 }
 </style>
-<script>
-import LoginNavbar from "@/components/LoginNavbar.vue";
-import BtnFromOthers from "@/components/BtnFromOthers.vue";
-export default {
-  components: {
-    LoginNavbar,
-    BtnFromOthers,
-  },
-};
-</script>

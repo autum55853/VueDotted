@@ -31,7 +31,13 @@
   </div>
   <div class="reviewContent">
     <div class="d-flex justify-content-around">
-      <div class="pdfpreview w-70">
+      <div
+        class="pdfpreview w-70"
+        @dragenter="checkDrag"
+        @dragleave="closDrag"
+        @drop.prevent="putDownSign"
+        @dragover.prevent
+      >
         <pdf-preview></pdf-preview>
       </div>
       <div class="p-5 w-30 d-flex flex-column">
@@ -39,8 +45,13 @@
         <!-- Button trigger modal -->
         <my-signing></my-signing>
         <invite-others></invite-others>
-        <div class="nextStep d-flex flex-cloumn align-items-end">
-          <button type="button" class="btn btn-secondary" :disabled="!isAble">
+        <div class="nextStep d-flex align-items-end">
+          <button
+            type="button"
+            class="btn btn-secondary"
+            :disabled="!isAble"
+            @submit.prevent="completedSign"
+          >
             下一步
           </button>
         </div>
@@ -49,11 +60,15 @@
   </div>
 </template>
 <script>
+import { ref } from "vue";
 import MySigning from "@/components/MySigning.vue";
 import BasicInfo from "@/components/BasicInfo.vue";
 import InviteOthers from "@/components/InviteOthers.vue";
 import PdfPreview from "@/components/PdfPreview.vue";
-import { ref } from "vue";
+import { storeToRefs } from "pinia";
+import { useSignature } from "@/stores/signatureStore.js";
+
+import { useRouter } from "vue-router";
 export default {
   components: {
     MySigning,
@@ -63,8 +78,36 @@ export default {
   },
   setup() {
     const isAble = ref(false);
+    const signatureStore = useSignature;
+    const { isComplete } = storeToRefs(signatureStore);
+
+    const checkSignandBackInfo = () => {
+      if (isComplete) {
+        isAble.value = true;
+      } else {
+        isAble.value = false;
+      }
+    };
+
+    //拖曳簽名檔到PDF
+    const checkDrag = () => {
+      console.log("成功drag");
+    };
+    const putDownSign = () => {
+      console.log("完成簽名檔托放");
+    };
+
+    //點擊"下一步", 跳轉到完成頁面
+    const router = useRouter();
+    const completedSign = () => {
+      router.push("/guest");
+    };
     return {
       isAble,
+      checkSignandBackInfo,
+      completedSign,
+      putDownSign,
+      checkDrag,
     };
   },
 };

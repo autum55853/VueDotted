@@ -33,7 +33,7 @@
             type="button"
             class="fontSelect"
             :class="{ 'active-font': fontID == '思源黑體' }"
-            @click="selectFont('思源黑體')"
+            @click="selectFont('思源黑體'), getTextUrl"
           >
             思源黑體
           </button>
@@ -41,7 +41,7 @@
             type="button"
             class="fontSelect"
             :class="{ 'active-font': fontID == '思源宋體' }"
-            @click="selectFont('思源宋體')"
+            @click="selectFont('思源宋體'), getTextUrl"
           >
             思源宋體
           </button>
@@ -49,7 +49,7 @@
             type="button"
             class="fontSelect"
             :class="{ 'active-font': fontID == '辰於落燕體' }"
-            @click="selectFont('辰於落燕體')"
+            @click="selectFont('辰於落燕體'), getTextUrl"
           >
             辰於落燕體
           </button>
@@ -212,6 +212,7 @@ export default {
   border: 2px solid #e6e9ef;
   border-radius: 5px;
   font-size: 30px;
+  background: transparent;
 }
 
 .notoSans {

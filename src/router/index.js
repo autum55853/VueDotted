@@ -24,9 +24,9 @@ const router = createRouter({
       component: () => import("../views/RegistView.vue"),
     },
     {
-      path: "/complete",
-      name: "complete",
-      component: () => import("../views/CompleteView.vue"),
+      path: "/testPDF",
+      name: "testPDF",
+      component: () => import("../components/PdfPreviewTest.vue"),
     },
     {
       path: "/forgotpassword",

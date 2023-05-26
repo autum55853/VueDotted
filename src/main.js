@@ -14,6 +14,10 @@ import { FontAwesomeIcon } from "@fortawesome/vue-fontawesome";
 
 /* import specific icons */
 import {
+  faPen,
+  faTrashCan,
+  faGripVertical,
+  faEllipsisVertical,
   faCircleCheck,
   faUserSecret,
   faPlus,
@@ -21,16 +25,28 @@ import {
 } from "@fortawesome/free-solid-svg-icons";
 
 /* add icons to the library */
-library.add(faUserSecret, faCircleCheck, faPlus, faUserPlus);
+library.add(
+  faPen,
+  faTrashCan,
+  faGripVertical,
+  faEllipsisVertical,
+  faUserSecret,
+  faCircleCheck,
+  faPlus,
+  faUserPlus
+);
 
 const app = createApp(App);
 const pinia = createPinia();
+const env = import.meta.env;
 
 app.use(pinia);
 app.use(router);
+app.use(env);
 app.use(VueAxios, axios);
 app.use(VuePdf);
 app.use(domtoimage);
+
 app.component("font-awesome-icon", FontAwesomeIcon);
 
 app.mount("#app");

@@ -108,7 +108,7 @@ export default {
   },
 };
 </script>
-<style lang="scss">
+<style lang="scss" scoped>
 .drawAread {
   max-width: 100%;
   margin: 0 auto;

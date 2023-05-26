@@ -12,7 +12,10 @@
     </div>
     <div class="mx-auto text-center">
       <p>將檔案拖曳至這裡，或</p>
-      <div class="w-360 selectFile position-relative">
+      <div
+        class="w-360 selectFile position-relative"
+        :class="{ 'active-loading': isLoading }"
+      >
         <label
           @change="toggleActive, handleDrop"
           for="file"
@@ -20,12 +23,7 @@
           :class="{ hide: isLoading }"
           >選擇檔案</label
         >
-        <div class="hide w-360" :class="{ show: isLoading }">
-          <span
-            :style="{ width: loadingWidth + '%' }"
-            :class="{ 'active-loading': isLoading }"
-          >
-          </span>
+        <div class="hide selectFile" :class="{ show: isLoading }">
           <p class="p-2 position-absolute top-50 start-50 translate-middle">
             上傳中...
           </p>
@@ -59,17 +57,19 @@ export default {
     const toggleLoading = () => {
       isLoading.value = !isLoading.value;
       console.log("上傳中");
-      loadingWidth.value = window.setInterval(() => {
-        loadingWidth.value += 20;
+      /* loadingWidth.value = window.setInterval(() => {
+        loadingWidth.value += 30;
         console.log(loadingWidth.value);
         if (loadingWidth.value >= 100) {
           handleRouter();
           loadingWidth.value = 0;
         }
-      }, 1000);
+      }, 1000); */
+      //handleRouter();
     };
 
     const handleRouter = () => {
+      clearTimeout(loadingWidth.value);
       window.clearInterval(loadingWidth);
       setTimeout(() => {
         router.push("/guest");
@@ -77,15 +77,15 @@ export default {
     };
     const handleDrop = (e) => {
       console.log(e);
-      //const file = e.dataTransfer.files[0];
-      /* const fileSize = file.size / 1024 / 1024;
+      const file = e.dataTransfer.files[0];
+      const fileSize = file.size / 1024 / 1024;
       if (fileSize < 10) {
         toggleLoading();
       } else {
         console.log("Error");
         console.log(`${fileSize / 1048576}`);
         alert("檔案大小超出限制的10MB");
-      } */
+      }
     };
 
     return {
@@ -115,6 +115,10 @@ export default {
   border-radius: 8px;
   color: white;
 }
+.selectFile .active-loading {
+  color: black;
+  animation: loading 10s;
+}
 .selectFile label :hover {
   cursor: pointer;
 }
@@ -134,13 +138,18 @@ export default {
 .selectFile label {
   cursor: pointer;
 }
-.active-loading {
-  display: block;
-  color: white;
-  background: #096561;
-}
 
 .uploadInput {
   display: none;
+}
+@keyframes loading {
+  from {
+    background-color: 0%;
+    color: yellow;
+  }
+  to {
+    background-color: 100%;
+    color: blue;
+  }
 }
 </style>
