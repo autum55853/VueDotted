@@ -18,7 +18,7 @@
             >
           </button>
           <button type="button">
-            <router-link to="testPDF"> 簽名拖移測試頁面 </router-link>
+            <router-link to="testPDF"> PDF上傳並顯示 測試 </router-link>
           </button>
         </div>
       </div>

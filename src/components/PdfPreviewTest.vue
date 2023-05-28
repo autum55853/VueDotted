@@ -5,7 +5,7 @@
         <input @change="renderCanvas" type="file" accept="application/pdf" />
       </div>
       <!--pdf.js官網範例-->
-      <canvas ref="canvas" id="pdfCanvas" width="500" height="300"></canvas>
+      <canvas id="canvas" width="500" height="300"></canvas>
     </div>
     <div>
       <my-signing></my-signing>
@@ -29,9 +29,8 @@ export default {
   setup() {
     let sign = useSignature();
 
-    //const canvas = ref(null);
-    let Base64Prefix = "data:application/pdf;base64,";
-    let file;
+    //let Base64Prefix = "data:application/pdf;base64,";
+    //let file;
     /* const handlePDF = (data) => {
       console.log(data.target.files[0]);
       file = data.target.files[0];
@@ -76,19 +75,29 @@ export default {
       //console.log(atob(pdfData));
       // 將檔案處理成 base64
       pdfData = await readBlob(pdfData);
-
       // 將 base64 中的前綴刪去，並進行解碼
-      const data = atob(pdfData.substring(Base64Prefix.length));
+
+      //console.log(pdfData.substring(Base64Prefix.length).replaceAll(, ""));
+      /*  const data = await atob(
+        pdfData
+          .substring(Base64Prefix.length)
+          .replaceAll("/", "")
+          .replaceAll("+", "")
+      ); */
+      const data = atob(pdfData.substring(pdfData.indexOf(",") + 1));
       console.log(data);
       // 利用解碼的檔案，載入 PDF 檔及第一頁
       const pdfDoc = await pdfjsLib.getDocument({ data }).promise;
       const pdfPage = await pdfDoc.getPage(1);
 
       // 設定尺寸及產生 canvas
-      const viewport = pdfPage.getViewport({ scale: window.devicePixelRatio });
-      const canvas = document.createElement("canvas");
+      const viewport = pdfPage.getViewport({
+        scale: window.devicePixelRatio,
+      });
+      const canvas = document.getElementById("canvas");
+      console.log(canvas);
       const context = canvas.getContext("2d");
-
+      console.log(context);
       // 設定 PDF 所要顯示的寬高及渲染
       canvas.height = viewport.height;
       canvas.width = viewport.width;
@@ -101,6 +110,7 @@ export default {
       // 回傳做好的 PDF canvas
       return renderTask.promise.then(() => canvas);
     };
+
     const pdfToImage = async (pdfData) => {
       // 設定 PDF 轉為圖片時的比例
       const scale = 1 / window.devicePixelRatio;
@@ -167,7 +177,7 @@ export default {
 };
 </script>
 <style lang="scss" scoped>
-#pdfCanvas {
+#canvas {
   border: 3px solid black;
 }
 .isShow {

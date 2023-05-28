@@ -6,6 +6,7 @@ import VueAxios from "vue-axios";
 import domtoimage from "dom-to-image";
 import router from "./router";
 import VuePdf from "vue3-pdfjs";
+import { fabric } from "fabric";
 /* import the fontawesome core */
 import { library } from "@fortawesome/fontawesome-svg-core";
 
@@ -46,7 +47,7 @@ app.use(env);
 app.use(VueAxios, axios);
 app.use(VuePdf);
 app.use(domtoimage);
-
+app.use(fabric);
 app.component("font-awesome-icon", FontAwesomeIcon);
 
 app.mount("#app");

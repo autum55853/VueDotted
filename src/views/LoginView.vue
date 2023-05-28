@@ -1,19 +1,22 @@
 <template>
   <div class="accountPage d-flex">
     <div class="d-flex flex-column w-50">
-      <LoginNavbar></LoginNavbar>
-
       <section class="mx-auto w-70">
         <div class="text-center border-gray mx-auto m-2">
           <RouterLink to="/" class="navbar-brand">
-            <img src="@/assets/Logo.svg" alt="" width="150" height="100" />
+            <img
+              src="@/assets/Logo.svg"
+              alt="返回首頁"
+              width="150"
+              height="100"
+            />
           </RouterLink>
           <div class="mx-auto d-flex justify-content-evenly">
             <btn-from-others></btn-from-others>
           </div>
         </div>
         <form @submit.prevent="userLogin" class="mx-auto py-3">
-          <div class="mb-2 w-80 mx-auto border-top py-3 border-2">
+          <div class="mb-2 w-70 mx-auto border-top py-3 border-2">
             <input
               type="email"
               class="form-control"
@@ -63,14 +66,12 @@
 
 <script>
 import { ref } from "vue";
-import LoginNavbar from "@/components/LoginNavbar.vue";
 import BtnFromOthers from "@/components/BtnFromOthers.vue";
 
 //引入firebase
 //import { firebaseAuth } from "../config/firebaseConfiguration";
 export default {
   components: {
-    LoginNavbar,
     BtnFromOthers,
   },
   setup() {

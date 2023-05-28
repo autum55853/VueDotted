@@ -17,7 +17,7 @@
         :class="{ 'active-loading': isLoading }"
       >
         <label
-          @change="toggleActive, handleDrop"
+          @change="toggleActive"
           for="file"
           class="w-360 py-2"
           :class="{ hide: isLoading }"
@@ -31,6 +31,7 @@
       </div>
 
       <input
+        @change="handleDrop"
         class="uploadInput"
         id="file"
         type="file"
@@ -43,10 +44,11 @@
 <script>
 import { ref } from "vue";
 import { useRouter } from "vue-router";
+import { useSignature } from "@/stores/signatureStore.js";
 
 export default {
-  name: "DropZone",
   setup() {
+    const sign = useSignature();
     const isActive = ref(false);
     const isLoading = ref(false);
     const loadingWidth = ref(0);
@@ -57,15 +59,15 @@ export default {
     const toggleLoading = () => {
       isLoading.value = !isLoading.value;
       console.log("上傳中");
-      /* loadingWidth.value = window.setInterval(() => {
+      loadingWidth.value = window.setInterval(() => {
         loadingWidth.value += 30;
         console.log(loadingWidth.value);
         if (loadingWidth.value >= 100) {
           handleRouter();
           loadingWidth.value = 0;
         }
-      }, 1000); */
-      //handleRouter();
+      }, 1000);
+      handleRouter();
     };
 
     const handleRouter = () => {
@@ -75,16 +77,63 @@ export default {
         router.push("/guest");
       }, 2000);
     };
+
+    const readBlob = () => {
+      return new Promise((resolve, reject) => {
+        const reader = new FileReader();
+        reader.addEventListener("load", () =>
+          resolve((sign.myPDF = reader.result))
+        );
+        //console.log(reader.result);
+        reader.addEventListener("error", reject);
+        reader.readAsDataURL(reader.result);
+        sign.isUpload = true;
+        sign.myData = reader.result;
+        //console.log(reader.result);
+      });
+    };
     const handleDrop = (e) => {
-      console.log(e);
-      const file = e.dataTransfer.files[0];
-      const fileSize = file.size / 1024 / 1024;
-      if (fileSize < 10) {
-        toggleLoading();
+      let file;
+      let fileSize;
+      if (e.type == "change") {
+        file = e.target.files[0];
+        console.log(file);
+        fileSize = file.size / 1024 / 1024;
+        if (fileSize < 10) {
+          toggleLoading();
+
+          const readBlob = (file) => {
+            return new Promise((resolve, reject) => {
+              const reader = new FileReader();
+              reader.addEventListener("load", () =>
+                resolve((sign.myPDF = reader.result))
+              );
+              //console.log(reader.result);
+              reader.addEventListener("error", reject);
+              reader.readAsDataURL(file);
+              sign.isUpload = true;
+              sign.myData = reader.result;
+              //console.log(reader.result);
+            });
+          };
+          readBlob(file);
+        } else {
+          console.log("Error");
+          console.log(`${fileSize / 1048576}`);
+          alert("檔案大小超出限制的10MB");
+        }
       } else {
-        console.log("Error");
-        console.log(`${fileSize / 1048576}`);
-        alert("檔案大小超出限制的10MB");
+        file = e.dataTransfer.files[0];
+        console.log(file);
+        fileSize = file.size / 1024 / 1024;
+        if (fileSize < 10) {
+          toggleLoading();
+          readBlob();
+        } else {
+          console.log("Error");
+          console.log(`${fileSize / 1048576}`);
+          alert("檔案大小超出限制的10MB");
+        }
       }
     };
 

@@ -1,19 +1,22 @@
 <template>
-  <div>
-    <div>
-      <LoginNavbar></LoginNavbar>
-    </div>
-    <div class="d-flex">
-      <section>
-        <div class="text-center border-gray w-60 mx-auto m-3">
-          <img class="mb-4" src="@/assets/Logo.svg" alt="logo" />
+  <div class="registPage d-flex">
+    <div class="d-flex flex-column w-50">
+      <section class="mx-auto w-70">
+        <div class="text-center border-gray w-80 mx-auto">
+          <img
+            class="mb-4"
+            src="@/assets/Logo.svg"
+            alt="logo"
+            width="150"
+            height="100"
+          />
           <div class="mx-auto d-flex justify-content-evenly">
             <btn-from-others></btn-from-others>
           </div>
         </div>
 
-        <form class="mx-auto w-70">
-          <div class="mb-3 w-70 mx-auto border-top py-3 border-2">
+        <form class="mx-auto py-3">
+          <div class="mb-1 w-70 mx-auto border-top py-3 border-2">
             <input
               type="text"
               class="form-control mb-3"
@@ -38,7 +41,9 @@
           <div>已經有帳戶了? <RouterLink to="Login">登入</RouterLink></div>
         </form>
       </section>
-      <section class="bg-light">
+    </div>
+    <div class="w-50 bg-light">
+      <section class="mx-auto">
         <h3 class="text-center">為高效率的您，提供快速的服務。</h3>
         <img
           src="@/assets/img/Businessdeal.svg"
@@ -48,9 +53,15 @@
     </div>
   </div>
 </template>
-<style lang="scss">
+<style lang="scss" scoped>
+.registPage {
+  margin: auto;
+  height: 100vh;
+}
+.registPage section {
+  padding: 10% 0;
+}
 section {
-  width: 50%;
   height: 100%;
   text-align: center;
 }
@@ -62,11 +73,9 @@ section {
 }
 </style>
 <script>
-import LoginNavbar from "@/components/LoginNavbar.vue";
 import BtnFromOthers from "@/components/BtnFromOthers.vue";
 export default {
   components: {
-    LoginNavbar,
     BtnFromOthers,
   },
 };
