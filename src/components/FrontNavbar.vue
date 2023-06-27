@@ -17,9 +17,6 @@
               >註冊</RouterLink
             >
           </button>
-          <button type="button">
-            <router-link to="testPDF"> PDF上傳並顯示 測試 </router-link>
-          </button>
         </div>
       </div>
     </nav>

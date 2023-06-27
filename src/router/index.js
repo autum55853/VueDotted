@@ -24,11 +24,6 @@ const router = createRouter({
       component: () => import("../views/RegistView.vue"),
     },
     {
-      path: "/testPDF",
-      name: "testPDF",
-      component: () => import("../components/PdfPreviewTest.vue"),
-    },
-    {
       path: "/forgotpassword",
       name: "forgotpassword",
       component: () => import("../views/ForgotpasswordView.vue"),

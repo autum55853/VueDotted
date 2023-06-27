@@ -9,6 +9,7 @@ import VuePdf from "vue3-pdfjs";
 import { fabric } from "fabric";
 /* import the fontawesome core */
 import { library } from "@fortawesome/fontawesome-svg-core";
+import { initFirebase } from "./config/firebaseConfiguration";
 
 /* import font awesome icon component */
 import { FontAwesomeIcon } from "@fortawesome/vue-fontawesome";
@@ -49,5 +50,5 @@ app.use(VuePdf);
 app.use(domtoimage);
 app.use(fabric);
 app.component("font-awesome-icon", FontAwesomeIcon);
-
+initFirebase();
 app.mount("#app");

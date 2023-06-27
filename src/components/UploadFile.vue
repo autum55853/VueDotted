@@ -12,32 +12,26 @@
     </div>
     <div class="mx-auto text-center">
       <p>將檔案拖曳至這裡，或</p>
-      <div
-        class="w-360 selectFile position-relative"
-        :class="{ 'active-loading': isLoading }"
-      >
-        <label
-          @change="toggleActive"
-          for="file"
-          class="w-360 py-2"
-          :class="{ hide: isLoading }"
-          >選擇檔案</label
+      <div class="w-360 selectFile">
+        <div
+          class="loadingBar py-2"
+          :class="[isLoading === true ? 'activeLoading' : '']"
         >
-        <div class="hide selectFile" :class="{ show: isLoading }">
-          <p class="p-2 position-absolute top-50 start-50 translate-middle">
-            上傳中...
-          </p>
+          <label for="file" class="w-360" v-text="loadingText"></label>
         </div>
       </div>
 
+      <!--:style="{ width: loadingWidth + '%' }"-->
       <input
         @change="handleDrop"
         class="uploadInput"
         id="file"
         type="file"
-        accept="text/jpg,.pdf,.png"
+        accept="image/*,.pdf"
       />
-      <p class="text-success">檔案大小10MB以內，檔案格式為PDF、JPG 或 PNG</p>
+      <p class="text-success">
+        檔案大小10MB以內，檔案格式為PDF、JPEG、JPG 或 PNG<br />且PDF不得有密碼設定
+      </p>
     </div>
   </div>
 </template>
@@ -51,6 +45,7 @@ export default {
     const sign = useSignature();
     const isActive = ref(false);
     const isLoading = ref(false);
+    const loadingText = ref("選擇檔案");
     const loadingWidth = ref(0);
     const router = useRouter();
     const toggleActive = () => {
@@ -58,46 +53,92 @@ export default {
     };
     const toggleLoading = () => {
       isLoading.value = !isLoading.value;
-      console.log("上傳中");
-      loadingWidth.value = window.setInterval(() => {
-        loadingWidth.value += 30;
-        console.log(loadingWidth.value);
-        if (loadingWidth.value >= 100) {
-          handleRouter();
-          loadingWidth.value = 0;
-        }
-      }, 1000);
+      loadingText.value = "上傳中";
       handleRouter();
     };
 
     const handleRouter = () => {
-      clearTimeout(loadingWidth.value);
-      window.clearInterval(loadingWidth);
-      setTimeout(() => {
-        router.push("/guest");
-      }, 2000);
+      router.push("/guest");
     };
 
-    const readBlob = () => {
-      return new Promise((resolve, reject) => {
-        const reader = new FileReader();
-        reader.addEventListener("load", () =>
-          resolve((sign.myPDF = reader.result))
-        );
-        //console.log(reader.result);
-        reader.addEventListener("error", reject);
-        reader.readAsDataURL(reader.result);
-        sign.isUpload = true;
-        sign.myData = reader.result;
-        //console.log(reader.result);
-      });
-    };
+    /* const handleDrop = (e) => {
+      let file;
+      let fileSize;
+      let type = e.target.files[0].type.split("/");
+      if (
+        type[1] == "png" ||
+        type[1] == "pdf" ||
+        type[1] == "jpeg" ||
+        type[1] == "jpg"
+      ) {
+        if (e.type == "change") {
+          file = e.target.files[0];
+          console.log(file);
+          fileSize = file.size / 1024 / 1024;
+          if (fileSize < 10) {
+            toggleLoading();
+
+            const readBlob = (file) => {
+              return new Promise((resolve, reject) => {
+                const reader = new FileReader();
+                reader.addEventListener("load", () =>
+                  resolve((sign.myPDF = reader.result))
+                );
+                //console.log(reader.result);
+                reader.addEventListener("error", reject);
+                reader.readAsDataURL(file);
+                sign.isUpload = true;
+                sign.myData = reader.result;
+                //console.log(reader.result);
+              });
+            };
+            readBlob(file);
+          } else {
+            console.log("Error");
+            console.log(`${fileSize / 1048576}`);
+            alert("檔案大小超出限制的10MB");
+          }
+        } else if (e.type == "drop") {
+          file = e.dataTransfer.files[0];
+          console.log(file);
+          fileSize = file.size / 1024 / 1024;
+          if (fileSize < 10) {
+            toggleLoading();
+            const readBlob = (file) => {
+              return new Promise((resolve, reject) => {
+                const reader = new FileReader();
+                reader.addEventListener("load", () =>
+                  resolve((sign.myPDF = reader.result))
+                );
+                //console.log(reader.result);
+                reader.addEventListener("error", reject);
+                reader.readAsDataURL(file);
+                sign.isUpload = true;
+                sign.myData = reader.result;
+                //console.log(reader.result);
+              });
+            };
+            readBlob(file);
+          } else {
+            console.log("Error");
+            console.log(`${fileSize / 1048576}`);
+            alert("檔案大小超出限制的10MB");
+          }
+        }
+      } else {
+        console.log("請確認檔案格式為PDF 或PNG");
+      }
+    }; */
     const handleDrop = (e) => {
       let file;
       let fileSize;
+      let type;
+      console.log(e);
       if (e.type == "change") {
         file = e.target.files[0];
-        console.log(file);
+        type = e.target.files[0].type.split("/");
+
+        console.log(type);
         fileSize = file.size / 1024 / 1024;
         if (fileSize < 10) {
           toggleLoading();
@@ -122,13 +163,27 @@ export default {
           console.log(`${fileSize / 1048576}`);
           alert("檔案大小超出限制的10MB");
         }
-      } else {
+      } else if (e.type == "drop") {
         file = e.dataTransfer.files[0];
         console.log(file);
         fileSize = file.size / 1024 / 1024;
         if (fileSize < 10) {
           toggleLoading();
-          readBlob();
+          const readBlob = (file) => {
+            return new Promise((resolve, reject) => {
+              const reader = new FileReader();
+              reader.addEventListener("load", () =>
+                resolve((sign.myPDF = reader.result))
+              );
+              //console.log(reader.result);
+              reader.addEventListener("error", reject);
+              reader.readAsDataURL(file);
+              sign.isUpload = true;
+              sign.myData = reader.result;
+              //console.log(reader.result);
+            });
+          };
+          readBlob(file);
         } else {
           console.log("Error");
           console.log(`${fileSize / 1048576}`);
@@ -144,11 +199,12 @@ export default {
       isLoading,
       toggleLoading,
       loadingWidth,
+      loadingText,
     };
   },
 };
 </script>
-<style lang="scss">
+<style lang="scss" scoped>
 .uploadFile {
   width: 80%;
   padding: 50px;
@@ -160,20 +216,25 @@ export default {
 }
 .selectFile {
   width: 360px;
+  border-radius: 10px;
   background-color: #0b7d77;
-  border-radius: 8px;
+}
+.loadingBar {
+  border-radius: 10px;
   color: white;
 }
-.selectFile .active-loading {
-  color: black;
-  animation: loading 10s;
+
+.activeLoading {
+  display: block;
+  height: 40px;
+  padding: 8px 0px;
+  background-color: #096561;
+  animation: loading linear 3s;
 }
 .selectFile label :hover {
   cursor: pointer;
 }
-.selectFile span {
-  padding: 10px;
-}
+
 .hide {
   display: none;
 }
@@ -193,12 +254,10 @@ export default {
 }
 @keyframes loading {
   from {
-    background-color: 0%;
-    color: yellow;
+    width: 0%;
   }
   to {
-    background-color: 100%;
-    color: blue;
+    width: 100%;
   }
 }
 </style>
